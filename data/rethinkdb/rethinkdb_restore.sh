@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export AWS_ACCESS_KEY_ID=$BACKUP_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY=$BACKUP_SECRET_ACCESS_KEY
+
+aws --endpoint-url $BACKUP_ENDPOINT s3 cp s3://$BACKUP_BUCKET/$BACKUP_PATH/LATEST.tar.gz .
+rethinkdb-restore -c $DATA_RETHINKDB_HOST LATEST.tar.gz --force
